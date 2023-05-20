@@ -1,33 +1,38 @@
-import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import path from "path";
+import { defineConfig } from "vite";
+import dts from "vite-plugin-dts";
 
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [
-        react({
-            include: "**/*.tsx",
+        react(),
+        dts({
+            insertTypesEntry: true,
         }),
     ],
-    server: {
-        watch: {
-            usePolling: true,
+    build: {
+        minify: true,
+        lib: {
+            entry: path.resolve(__dirname, "src/index.ts"),
+            name: "NtdCommon",
+            formats: ["es", "umd"],
+            fileName: (format) => `ntd-common.${format}.js`,
         },
-        host: true,
+        rollupOptions: {
+            external: ["react"],
+            output: {
+                globals: {
+                    react: "React",
+                },
+            },
+        },
     },
     resolve: {
         alias: {
-            public: "/public",
             src: "/src",
+            public: "/public",
         },
     },
-    // mode: "production",
-    // esbuild: {
-    //     drop: ["console", "debugger"],
-    // },
-
-    /**TODO: Production*/
-    // base: "//static.assets.sadlierconnect.com/sc-content/javascript/fpr/audio/v2",
-
-    /**TODO: Development - Run At Local after build*/
-    // base: "./",
+    mode: "production",
 });

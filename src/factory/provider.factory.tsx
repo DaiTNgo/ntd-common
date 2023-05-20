@@ -24,14 +24,17 @@ type TDispatch = <TPayload>(action: TAction<TPayload>) => void;
 interface TProviderFactoryReturn<TState> {
     useContextState: () => TState;
     useContextDispatch: () => <TPayload>(action: TAction<TPayload>) => void;
-    Provider: ({children}: React.PropsWithChildren) => JSX.Element;
+    Provider: ({ children }: React.PropsWithChildren) => JSX.Element;
 }
 
 export const createProviderFactory = <TState, TReducer>({
     name,
     slice,
     middleware,
-}: TProviderFactoryParams<TState, TReducer>):TProviderFactoryReturn<TState> => {
+}: TProviderFactoryParams<
+    TState,
+    TReducer
+>): TProviderFactoryReturn<TState> => {
     const { useHook: useContextState, context: ContextState } =
         createContextFactory<typeof slice.initialValue>(name);
 
@@ -87,5 +90,5 @@ export const createProviderFactory = <TState, TReducer>({
         );
     };
 
-    return {useContextState, useContextDispatch, Provider} ;
+    return { useContextState, useContextDispatch, Provider };
 };

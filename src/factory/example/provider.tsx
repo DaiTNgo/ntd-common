@@ -1,5 +1,3 @@
-
-
 import React from "react";
 import { createProviderFactory, createSlice } from "src/factory";
 

@@ -1,4 +1,4 @@
-export class PostMessage {
+export class PostMessageBase {
     isDevMsgOrNotData(event: MessageEvent) {
         const messageData = event.data;
         const isDevMsg =

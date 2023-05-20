@@ -21,19 +21,18 @@ export const toPascalCase = (str: string): string =>
         .map((w) => `${w.charAt(0).toUpperCase()}${w.slice(1)}`)
         .join("");
 
-
 export const typeofValue = (value: any) => {
     return Object.prototype.toString.call(value).slice(8, -1) as TTypeofValue;
 };
 
 export const IIFE = (cb: Function) => {
-    if(typeofValue(cb) !== 'Function') {
+    if (typeofValue(cb) !== "Function") {
         throw new Error("[IIFE] --- [cb] is not a function");
     }
     return cb();
 };
 
-export function compose<T>(...fns: ((pra:T)=>any)[]) {
+export function compose<T>(...fns: ((pra: T) => any)[]) {
     return (x: T) => fns.reduceRight((v, f) => f(v), x);
 }
 

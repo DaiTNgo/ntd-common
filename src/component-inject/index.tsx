@@ -1,5 +1,5 @@
-import {forwardRef, Fragment, Ref} from "react";
-import type {ComponentInjectPropsType} from "./type";
+import { forwardRef, Fragment, Ref } from "react";
+import type { ComponentInjectPropsType } from "./type";
 
 export function ComponentInject<Props>(params: ComponentInjectPropsType) {
     return forwardRef((props: Props, ref: Ref<any>) => {

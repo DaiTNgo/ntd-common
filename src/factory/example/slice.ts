@@ -1,4 +1,4 @@
-import {createSlice} from "../slice.factory";
+import { createSlice } from "../slice.factory";
 
 type TPayloadIncrement = number;
 type TPayloadDecrement = string;
@@ -9,8 +9,8 @@ const reducers = {
     decrement: (state, payload: TPayloadDecrement) => {
         return state;
     },
-}
-const {initialValue, reducer, actions} = createSlice({
+};
+const { initialValue, reducer, actions } = createSlice({
     initialValue: {
         count: 1,
         user: ["a", "b", "c"],
@@ -21,10 +21,10 @@ const {initialValue, reducer, actions} = createSlice({
         },
         decrement: (state, payload: TPayloadDecrement) => {
             return state;
-        }
+        },
     },
 });
-const {increment, decrement} = actions;
+const { increment, decrement } = actions;
 //
-increment<TPayloadIncrement>(3)
+increment<TPayloadIncrement>(3);
 // decrement<TPayloadDecrement>('a')

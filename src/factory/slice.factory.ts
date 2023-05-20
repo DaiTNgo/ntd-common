@@ -4,18 +4,12 @@ type CreateSliceParams<TState, TReducers> = {
 };
 
 export type CreateSliceReturn<TState, TReducers> = {
-    actions: Record<
-        keyof TReducers,
-        <T>(payload?: T) => TState
-    >;
+    actions: Record<keyof TReducers, <T>(payload?: T) => TState>;
     reducer: (state: TState, action: TAction<any>) => TState;
     initialValue: TState;
 };
 
-type TFunctionReducer<TState> = (
-    state: TState,
-    payload: any
-) => TState;
+type TFunctionReducer<TState> = (state: TState, payload: any) => TState;
 
 export type TAction<TPayload> = {
     type: string;
@@ -26,9 +20,9 @@ export const createSlice = <
     TState,
     TReducers extends Record<string, TFunctionReducer<TState>>
 >({
-      initialValue,
-      reducers,
-  }: CreateSliceParams<TState, TReducers>) => {
+    initialValue,
+    reducers,
+}: CreateSliceParams<TState, TReducers>) => {
     const reducer = <TPayload>(
         state = initialValue,
         action: TAction<TPayload>
@@ -53,12 +47,9 @@ export const createSlice = <
         };
     }, {});
 
-
     return {
         actions,
         reducer,
         initialValue,
     };
 };
-
-

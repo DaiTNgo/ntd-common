@@ -1,29 +1,28 @@
-import {TAction} from "src/PostMessage/type";
-import {PostMessage} from "src/PostMessage/post-message";
+import { TAction } from "src/post-message/type";
+import { PostMessageBase } from "src/post-message/post-message.base";
 
 interface IPostMessageDriving {
-    on<TMessage>(
-        message: TMessage,
-        fn: <T>(payload: T) => void
-    ): any;
+    on<TMessage>(message: TMessage, fn: <T>(payload: T) => void): any;
 
     manual(fn: (event: MessageEvent) => void): any;
 
-    listen<TFunction extends (event: MessageEvent) => void>(fn: TFunction): () => void;
+    listen<TFunction extends (event: MessageEvent) => void>(
+        fn: TFunction
+    ): () => void;
 }
 
-export class PostMessageDriving extends PostMessage implements IPostMessageDriving {
+export class PostMessageDriving
+    extends PostMessageBase
+    implements IPostMessageDriving
+{
     private static instance: PostMessageDriving;
 
-    on<TMessage>(
-        message: TMessage,
-        fn: <T>(payload: T) => void
-    ) {
+    on<TMessage>(message: TMessage, fn: <T>(payload: T) => void) {
         const handleMessage = (event: MessageEvent<TAction>) => {
             if (this.isDevMsgOrNotData(event)) return;
 
             const messageData = event.data;
-            const {payload, type} = messageData;
+            const { payload, type } = messageData;
 
             if (type === message) {
                 fn(payload);
