@@ -1,11 +1,21 @@
-import React, { PropsWithChildren } from "react";
+import React, {
+    ForwardRefExoticComponent,
+    PropsWithChildren,
+    PropsWithoutRef,
+    Ref,
+    RefAttributes,
+} from "react";
 
-type FunctionHasChildrenType = ({ children }: PropsWithChildren) => JSX.Element;
+export type FunctionHasChildrenType = ({
+    children,
+}: PropsWithChildren) => JSX.Element;
 
 type FunctionInjectType = FunctionHasChildrenType;
 
-type AppType = (props?: any, ref?: any) => JSX.Element;
-//    function forwardRef<T, P = {}>(render: ForwardRefRenderFunction<T, P>): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
+type AppType =
+    | (<Props>(props?: Props) => JSX.Element)
+    | ForwardRefExoticComponent<PropsWithoutRef<any> & RefAttributes<any>>;
+
 export type ComponentInjectPropsType = {
     providers?: Array<FunctionInjectType>;
     /** containers: logic + ui + store */

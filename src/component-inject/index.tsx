@@ -1,24 +1,24 @@
 import { forwardRef, Fragment, Ref } from "react";
-import type { ComponentInjectPropsType } from "./type";
+import type { ComponentInjectPropsType, FunctionHasChildrenType } from "./type";
 
 export function ComponentInject<Props>(params: ComponentInjectPropsType) {
-    return forwardRef((props: Props, ref: Ref<any>) => {
-        const { providers, template, app: App, services, containers } = params;
-        let list: ComponentInjectPropsType["providers"] = [];
+    const { providers, template, app: App, services, containers } = params;
+    let list: Array<FunctionHasChildrenType> = [];
 
-        if (containers) {
-            list = list.concat(containers);
-        }
-        if (services) {
-            list = list.concat(services);
-        }
-        if (providers) {
-            list = list.concat(providers);
-        }
-        if (template) {
-            list = list.concat(template);
-        }
+    if (containers) {
+        list = list.concat(containers);
+    }
+    if (services) {
+        list = list.concat(services);
+    }
+    if (providers) {
+        list = list.concat(providers);
+    }
+    if (template) {
+        list = list.concat(template);
+    }
 
+    return forwardRef((props: Props, ref?: Ref<any>) => {
         return (
             <Fragment>
                 {list.reduceRight((children, Provider) => {

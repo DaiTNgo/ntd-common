@@ -4,5 +4,7 @@ type ContextFactoryReturn<T> = {
     useHook: () => T;
     context: React.Context<T>;
 };
-export declare const createContextFactory: <ContextType>(name: NameFactoryType) => ContextFactoryReturn<ContextType>;
+export declare const createContextFactory: <ContextType>(
+    name: NameFactoryType
+) => ContextFactoryReturn<ContextType>;
 export {};
