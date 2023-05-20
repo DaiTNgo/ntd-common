@@ -12,18 +12,9 @@ export type TAction<TPayload> = {
     type: string;
     payload: TPayload;
 };
-export declare const createSlice: <
-    TState,
-    TReducers extends Record<string, TFunctionReducer<TState>>
->({
-    initialValue,
-    reducers,
-}: CreateSliceParams<TState, TReducers>) => {
+export declare const createSlice: <TState, TReducers extends Record<string, TFunctionReducer<TState>>>({ initialValue, reducers, }: CreateSliceParams<TState, TReducers>) => {
     actions: {};
-    reducer: <TPayload>(
-        state: TState | undefined,
-        action: TAction<TPayload>
-    ) => TState;
+    reducer: <TPayload>(state: TState | undefined, action: TAction<TPayload>) => TState;
     initialValue: TState;
 };
 export {};

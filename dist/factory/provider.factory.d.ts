@@ -10,9 +10,5 @@ interface TProviderFactoryReturn<TState> {
     useContextDispatch: () => <TPayload>(action: TAction<TPayload>) => void;
     Provider: ({ children }: React.PropsWithChildren) => JSX.Element;
 }
-export declare const createProviderFactory: <TState, TReducer>({
-    name,
-    slice,
-    middleware,
-}: TProviderFactoryParams<TState, TReducer>) => TProviderFactoryReturn<TState>;
+export declare const createProviderFactory: <TState, TReducer>({ name, slice, middleware, }: TProviderFactoryParams<TState, TReducer>) => TProviderFactoryReturn<TState>;
 export {};
