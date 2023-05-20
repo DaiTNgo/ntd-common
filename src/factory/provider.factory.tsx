@@ -5,13 +5,7 @@ import React, {
     useReducer,
 } from "react";
 import { createContextFactory } from "src/factory/context.factory";
-import { CreateSliceReturn, TAction } from "src/factory/slice.factory";
-
-type CreateProviderFactoryParams<TState, TReducer> = {
-    name: string;
-    slice: CreateSliceReturn<TState, TReducer>;
-    middleware?: any;
-};
+import { CreateSliceReturn, TAction } from "./slice.factory";
 
 type CombineContextType<TState, TReducer> = {
     children: React.ReactNode;
@@ -19,13 +13,25 @@ type CombineContextType<TState, TReducer> = {
     middleware: (dispatch: any) => (payload: any) => void;
 };
 
+type TProviderFactoryParams<TState, TReducer> = {
+    name: string;
+    slice: CreateSliceReturn<TState, TReducer>;
+    middleware?: any;
+};
+
 type TDispatch = <TPayload>(action: TAction<TPayload>) => void;
+
+interface TProviderFactoryReturn<TState> {
+    useContextState: () => TState;
+    useContextDispatch: () => <TPayload>(action: TAction<TPayload>) => void;
+    Provider: ({children}: React.PropsWithChildren) => JSX.Element;
+}
 
 export const createProviderFactory = <TState, TReducer>({
     name,
     slice,
     middleware,
-}: CreateProviderFactoryParams<TState, TReducer>) => {
+}: TProviderFactoryParams<TState, TReducer>):TProviderFactoryReturn<TState> => {
     const { useHook: useContextState, context: ContextState } =
         createContextFactory<typeof slice.initialValue>(name);
 
@@ -81,5 +87,5 @@ export const createProviderFactory = <TState, TReducer>({
         );
     };
 
-    return { useContextState, useContextDispatch, Provider };
+    return {useContextState, useContextDispatch, Provider} ;
 };

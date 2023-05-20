@@ -1,5 +1,5 @@
 import {TAction} from "src/PostMessage/type";
-import {PostMessage} from "src/PostMessage";
+import {PostMessage} from "src/PostMessage/post-message";
 
 interface IPostMessageDriving {
     on<TMessage>(

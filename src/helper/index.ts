@@ -1,4 +1,4 @@
-import { TTypeofValue, VoidFunction } from "src/common/types";
+import { TTypeofValue, VoidFunction } from "src/types";
 export const mergeClassName = (
     ...classNames: (string | boolean | null | undefined)[]
 ): string => {
@@ -33,7 +33,7 @@ export const IIFE = (cb: Function) => {
     return cb();
 };
 
-export function compose<T>(...fns: ((pra:T)=>void)[]) {
+export function compose<T>(...fns: ((pra:T)=>any)[]) {
     return (x: T) => fns.reduceRight((v, f) => f(v), x);
 }
 

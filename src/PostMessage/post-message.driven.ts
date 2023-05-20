@@ -1,7 +1,5 @@
-import {
-    PostMessage,
-} from "src/PostMessage";
 import {TAction} from "src/PostMessage/type";
+import {PostMessage} from "src/PostMessage/post-message";
 
 interface IPostMessageDriven {
     emit<T,P>(
@@ -10,15 +8,22 @@ interface IPostMessageDriven {
     ): void;
 
     on<T>(
-        message: Pick<TAction<T>, "type">,
+        message: T,
         fn: <T>(payload: T) => void
     ): void;
-
-    readonly url: string;
 };
 export class PostMessageDriven extends PostMessage implements IPostMessageDriven {
-    private readonly url: string;
+    private url: string;
     private static instance: PostMessageDriven;
+
+    private constructor() {
+        super();
+        this.url= '*'
+    };
+
+    set setUrl(url: string) {
+        this.url = url;
+    };
 
     emit<T,P>(
         action: TAction<T,P>,
@@ -32,7 +37,7 @@ export class PostMessageDriven extends PostMessage implements IPostMessageDriven
     }
 
     on<T>(
-        message: Pick<TAction<T>, "type">,
+        message: T,
         fn: <TPayloadFn>(payload: TPayloadFn) => void
     ) {
         const handleMessage = (event: MessageEvent<TAction>) => {

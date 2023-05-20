@@ -6,31 +6,29 @@ type CreateSliceParams<TState, TReducers> = {
 export type CreateSliceReturn<TState, TReducers> = {
     actions: Record<
         keyof TReducers,
-        <T>(payload?: T) => { payload: T; type: keyof TReducers }
+        <T>(payload?: T) => TState
     >;
-    reducer: <TPayload>(state: TState, action: TAction<TPayload>) => TState;
+    reducer: (state: TState, action: TAction<any>) => TState;
     initialValue: TState;
 };
+
+type TFunctionReducer<TState> = (
+    state: TState,
+    payload: any
+) => TState;
 
 export type TAction<TPayload> = {
     type: string;
     payload: TPayload;
 };
-type TFunctionReducer<TState, TPayload> = (
-    state: TState,
-    payload: TPayload
-) => TState;
-
-type TFunctionCreator<TPayload> = (payload?: TPayload) => TAction<TPayload>;
 
 export const createSlice = <
-    TPayload,
     TState,
-    TReducers ,
+    TReducers extends Record<string, TFunctionReducer<TState>>
 >({
-    initialValue,
-    reducers,
-}: CreateSliceParams<TState, TReducers>) => {
+      initialValue,
+      reducers,
+  }: CreateSliceParams<TState, TReducers>) => {
     const reducer = <TPayload>(
         state = initialValue,
         action: TAction<TPayload>
@@ -53,8 +51,7 @@ export const createSlice = <
                 payload,
             }),
         };
-    }, {} as Record<keyof TReducers, TFunctionCreator<TPayload>>);
-
+    }, {});
 
 
     return {
@@ -63,27 +60,5 @@ export const createSlice = <
         initialValue,
     };
 };
-const reducers = {
-    increment: (state, payload: number) => {
-        return state;
-    },
-    decrement: (state, payload: number) => {
-        return state;
-    },
-}
-const { initialValue, reducer, actions } = createSlice({
-    initialValue: {
-        count: 1,
-        user: ["a", "b", "c"],
-    },
-    reducers: reducers,
-});
-const { increment, decrement } = actions;
-decrement();
 
-type B = {
-    [key in keyof typeof reducers]: any;
-}[keyof typeof reducers]
-type A<T> = {
-    [key in keyof typeof reducers]: (payload?: T) => void;
-}[keyof typeof reducers]
+

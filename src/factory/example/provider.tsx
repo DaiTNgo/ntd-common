@@ -1,3 +1,5 @@
+
+
 import React from "react";
 import { createProviderFactory, createSlice } from "src/factory";
 
@@ -9,8 +11,6 @@ const aggregateSlice = createSlice({
     },
     reducers: {
         increment: (state) => {
-            state.count = state.count + 1;
-            console.log("count", state.count);
             return {
                 ...state,
             };
@@ -22,8 +22,6 @@ const aggregateSlice = createSlice({
             };
         },
         cong: (state) => {
-            state.like = state.like + 1;
-            console.log("like", state.like);
             return {
                 ...state,
             };
