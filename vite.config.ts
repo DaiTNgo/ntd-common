@@ -17,7 +17,7 @@ export default defineConfig({
             entry: path.resolve(__dirname, "src/index.ts"),
             name: "NtdCommon",
             formats: ["es", "umd"],
-            fileName: (format) => `ntd-common.${format}.js`,
+            fileName: (format) => `index.js`,
         },
         rollupOptions: {
             external: ["react"],

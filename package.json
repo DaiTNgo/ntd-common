@@ -1,7 +1,7 @@
 {
     "name": "@ntd/common",
     "private": true,
-    "version": "0.0.1",
+    "version": "0.0.2",
     "type": "module",
     "exports": {
         ".": {
@@ -10,6 +10,7 @@
         },
         "./package.json": "./package.json"
     },
+    "main": "./dist/index.js",
     "scripts": {
         "build": "tsc && vite build",
         "dev": "vite",
